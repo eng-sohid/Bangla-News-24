@@ -1,13 +1,11 @@
 import type { Metadata } from "next";
-import { Noto Serif Bengali } from "next/font/google";
+import { Noto_Serif_Bengali } from "next/font/google";
 import "./globals.css";
+import Header from "../components/Header";
 
-const notoSerifBengoli = Noto Serif Bengali({
- 
-  subsets: ["latin","bengali"],
+const notoSerifBengoli = Noto_Serif_Bengali({
+  subsets: ["latin", "bengali"],
 });
-
-
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,9 +16,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${notoSerifBengoli.className} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <Header />
+        {children}
+        Footer
+      </body>
     </html>
   );
 }
