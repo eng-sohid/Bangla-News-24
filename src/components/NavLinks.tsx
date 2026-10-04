@@ -1,4 +1,4 @@
-import Link from "next/link";
+import NavLink from "./NavLink";
 
 interface Navs {
   slug: string;
@@ -9,21 +9,28 @@ interface Navs {
 }
 
 const NavLinks = async () => {
-  const res = await fetch("https://news-api-v2.vercel.app/api/categories");
-  const data = await res.json();
-  const navs: Navs[] = data.data;
+  let navs: Navs[] = [];
+  try {
+    const res = await fetch("https://news-api-v2.vercel.app/api/categories", {
+      signal: AbortSignal.timeout(15000),
+      next: { revalidate: 300 },
+    });
+    navs = (await res.json()).data ?? [];
+  } catch (e) {
+    console.error("NavLinks fetch failed:", e);
+  }
 
-  const fiteredNavs = navs.filter((n) => n.scrapable);
+  const filteredNavs = navs.filter((n) => n.scrapable);
 
   return (
-    <div className="flex gap-5 justify-center mt-5">
-      <Link href={"/"}>হোম</Link>
-      {fiteredNavs.map((n, i) => (
-        <Link key={i} href={`/category/${n.slug}`}>
+    <nav className="mt-5 flex flex-wrap justify-center gap-5">
+      <NavLink href="/">হোম</NavLink>
+      {filteredNavs.map((n) => (
+        <NavLink key={n.slug} href={`/category/${n.slug}`}>
           {n.title}
-        </Link>
+        </NavLink>
       ))}
-    </div>
+    </nav>
   );
 };
 
