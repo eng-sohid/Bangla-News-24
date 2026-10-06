@@ -23,13 +23,19 @@ const NavLinks = async () => {
   const filteredNavs = navs.filter((n) => n.scrapable);
 
   return (
-    <nav className="mt-5 flex flex-wrap justify-center gap-5">
-      <NavLink href="/">হোম</NavLink>
-      {filteredNavs.map((n) => (
-        <NavLink key={n.slug} href={`/category/${n.slug}`}>
-          {n.title}
-        </NavLink>
-      ))}
+    <nav className="sticky top-0 z-40 border-y border-line bg-white/90 backdrop-blur">
+      <div className="container mx-auto px-4">
+        <ul className="flex items-center gap-1 overflow-x-auto whitespace-nowrap [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:justify-center">
+          <li>
+            <NavLink href="/">হোম</NavLink>
+          </li>
+          {filteredNavs.map((n) => (
+            <li key={n.slug}>
+              <NavLink href={`/category/${n.slug}`}>{n.title}</NavLink>
+            </li>
+          ))}
+        </ul>
+      </div>
     </nav>
   );
 };

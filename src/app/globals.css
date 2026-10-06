@@ -1,2 +1,145 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+@theme inline {
+  --font-sans: var(--font-hind), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-noto-serif), ui-serif, Georgia, serif;
+
+  --color-brand: #b91c1c;
+  --color-brand-dark: #7f1d1d;
+  --color-ink: #141414;
+  --color-muted: #6b6b6b;
+  --color-paper: #faf8f5;
+  --color-line: #e7e2da;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    line-height: 1.7;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-serif);
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+  }
+
+  ::selection {
+    background: var(--color-brand);
+    color: white;
+  }
+
+  /* স্ক্রলবার */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-paper);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #cfc8bc;
+    border-radius: 999px;
+    border: 2px solid var(--color-paper);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-brand);
+  }
+}
+
+@layer components {
+  /* সেকশনের টাইটেল: বাম পাশে লাল বার + নিচে হালকা লাইন */
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-bottom: 0.6rem;
+    margin-bottom: 1.25rem;
+    border-bottom: 1px solid var(--color-line);
+    font-family: var(--font-serif);
+    font-size: 1.35rem;
+    font-weight: 800;
+  }
+  .section-title::before {
+    content: "";
+    width: 0.4rem;
+    height: 1.6rem;
+    border-radius: 2px;
+    background: var(--color-brand);
+  }
+
+  /* হোভার করলে নিচে লাল আন্ডারলাইন আসবে */
+  .hover-underline {
+    background-image: linear-gradient(var(--color-brand), var(--color-brand));
+    background-size: 0% 2px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.3s ease;
+  }
+  .hover-underline:hover {
+    background-size: 100% 2px;
+  }
+
+  .card-soft {
+    background: white;
+    border: 1px solid var(--color-line);
+    border-radius: 0.75rem;
+    transition:
+      transform 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+  .card-soft:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px -12px rgb(0 0 0 / 0.18);
+  }
+}
+/* ফর্মের ইনপুট */
+.field-input {
+  width: 100%;
+  border-radius: 0.6rem;
+  border: 1px solid var(--color-line);
+  background: white;
+  padding: 0.7rem 1rem;
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.field-input::placeholder {
+  color: #a8a29e;
+}
+.field-input:focus {
+  border-color: var(--color-brand);
+  box-shadow: 0 0 0 3px rgb(185 28 28 / 0.15);
+}
+
+/* মূল লাল বাটন */
+.btn-brand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  border-radius: 0.6rem;
+  background: var(--color-brand);
+  padding: 0.75rem 1.25rem;
+  font-weight: 700;
+  color: white;
+  transition: background 0.2s ease;
+}
+.btn-brand:hover:not(:disabled) {
+  background: var(--color-brand-dark);
+}
+.btn-brand:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

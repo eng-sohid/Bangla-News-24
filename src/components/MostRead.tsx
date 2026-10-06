@@ -23,18 +23,24 @@ const MostRead = async () => {
   const bn = new Intl.NumberFormat("bn-BD");
 
   return (
-    <aside className="rounded-lg border border-gray-200 bg-white p-5">
-      <h2 className="mb-4 border-b-2 border-red-700 pb-2 text-xl font-bold">
-        সর্বাধিক পঠিত
-      </h2>
-      <ol className="divide-y divide-gray-100">
+    <aside className="overflow-hidden rounded-2xl border border-line bg-white">
+      <div className="flex items-center gap-2 bg-ink px-5 py-3 text-white">
+        <span className="text-lg">🔥</span>
+        <h2 className="font-serif text-lg font-extrabold">সর্বাধিক পঠিত</h2>
+      </div>
+
+      <ol className="divide-y divide-line">
         {news.map((n, i) => (
           <li key={n.id}>
-            <Link href={`/news/${n.id}`} className="group flex gap-3 py-3">
-              <span className="w-6 shrink-0 text-2xl font-bold leading-none text-red-700">
+            <Link
+              href={`/news/${n.id}`}
+              className="group flex items-start gap-4 px-5 py-4 transition-colors hover:bg-paper"
+            >
+              <span className="w-8 shrink-0 text-center font-serif text-3xl leading-none font-extrabold text-brand">
                 {bn.format(i + 1)}
               </span>
-              <span className="font-medium leading-snug group-hover:text-red-700">
+
+              <span className="font-serif text-[15px] leading-snug font-semibold transition-colors group-hover:text-brand">
                 {n.title}
               </span>
             </Link>

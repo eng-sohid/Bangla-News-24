@@ -2,25 +2,26 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import type { ReactNode } from "react";
 
-const NavLink = ({
-  href,
-  children,
-}: {
-  href: string;
-  children: React.ReactNode;
-}) => {
+const NavLink = ({ href, children }: { href: string; children: ReactNode }) => {
   const pathname = usePathname();
-  const isActive = pathname === href;
+  const isActive = href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
     <Link
       href={href}
-      className={`transition-colors hover:text-red-700 ${
-        isActive ? "font-bold text-red-700" : "text-neutral-700"
+      aria-current={isActive ? "page" : undefined}
+      className={`relative block px-3 py-3 text-[15px] font-semibold transition-colors sm:px-4 ${
+        isActive ? "text-brand" : "text-ink/80 hover:text-brand"
       }`}
     >
       {children}
+      <span
+        className={`absolute inset-x-3 bottom-0 h-0.5 origin-left bg-brand transition-transform duration-300 sm:inset-x-4 ${
+          isActive ? "scale-x-100" : "scale-x-0"
+        }`}
+      />
     </Link>
   );
 };

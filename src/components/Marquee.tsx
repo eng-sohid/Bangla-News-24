@@ -27,23 +27,29 @@ const Marquee = async () => {
   if (!headlines.length) return null;
 
   return (
-    <div className="sticky top-0 z-50 bg-red-700 text-white">
-      <div className="container mx-auto flex">
-        <div className="bg-red-800 px-5 py-1 font-bold">সর্বশেষ</div>
-        <MarqueeText className="py-1" direction="right" duration={10}>
-          {headlines.map((h) => (
-            <Link
-              key={h.id}
-              href={h.isLive && h.link ? h.link : `/news/${h.id}`}
-              target={h.isLive ? "_blank" : undefined}
-              rel={h.isLive ? "noopener noreferrer" : undefined}
-              className="hover:underline"
-            >
-              <span>{h.title}</span>
-              <span className="mx-5 no-underline">ㆍ</span>
-            </Link>
-          ))}
-        </MarqueeText>
+    <div className="bg-ink text-white">
+      <div className="container mx-auto flex items-stretch">
+        <div className="flex shrink-0 items-center gap-2 bg-brand px-4 py-2 text-sm font-bold sm:px-6">
+          <span className="h-2 w-2 animate-pulse rounded-full bg-white" />
+          সর্বশেষ
+        </div>
+
+        <div className="min-w-0 flex-1 overflow-hidden">
+          <MarqueeText className="py-2 text-sm" direction="right" duration={10}>
+            {headlines.map((h) => (
+              <Link
+                key={h.id}
+                href={h.isLive && h.link ? h.link : `/news/${h.id}`}
+                target={h.isLive ? "_blank" : undefined}
+                rel={h.isLive ? "noopener noreferrer" : undefined}
+                className="transition-colors hover:text-red-300"
+              >
+                <span>{h.title}</span>
+                <span className="mx-5 text-brand">◆</span>
+              </Link>
+            ))}
+          </MarqueeText>
+        </div>
       </div>
     </div>
   );

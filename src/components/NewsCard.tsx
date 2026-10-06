@@ -20,29 +20,32 @@ const NewsCard = ({ news }: { news: News }) => {
       href={isLive ? news.link! : `/news/${news.id}`}
       target={isLive ? "_blank" : undefined}
       rel={isLive ? "noopener noreferrer" : undefined}
-      className="group flex h-full flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-md"
+      className="card-soft group flex h-full flex-col overflow-hidden"
     >
-      <div className="relative aspect-[16/9] w-full overflow-hidden bg-gray-100">
+      <div className="relative aspect-[16/10] w-full overflow-hidden bg-line">
         <Image
           src={news.imageUrl}
           alt={news.imageAlt}
           fill
-          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-          className="object-cover transition-transform duration-300 group-hover:scale-105"
+          sizes="(min-width: 1280px) 22vw, (min-width: 640px) 33vw, 100vw"
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
+        {isLive && (
+          <span className="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-brand px-2.5 py-0.5 text-xs font-bold text-white shadow">
+            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-white" />
+            লাইভ
+          </span>
+        )}
       </div>
 
       <div className="flex flex-1 flex-col gap-2 p-4">
-        <p className="text-sm font-semibold text-red-700">
-          {isLive && <span className="mr-1">● লাইভ</span>}
+        <p className="text-xs font-bold tracking-wide text-brand">
           {news.category}
         </p>
-        <h2 className="text-lg font-bold leading-snug group-hover:text-red-700">
+        <h3 className="font-serif text-lg leading-snug font-bold transition-colors group-hover:text-brand">
           {news.title}
-        </h2>
-        <p className="line-clamp-3 text-sm text-neutral-600">
-          {news.description}
-        </p>
+        </h3>
+        <p className="line-clamp-3 text-sm text-muted">{news.description}</p>
       </div>
     </Link>
   );
